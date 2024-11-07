@@ -398,7 +398,7 @@ class TgUploader:
                 nrml_media = await self.__client.send_document(chat_id=self.__sent_msg.chat.id,
                                                                        reply_to_message_id=self.__sent_msg.id,
                                                                        document=self.__up_path,
-                                                                       thumb=thumb,
+                                                                       thumb=None,
                                                                        caption=cap_mono,
                                                                        force_document=True,
                                                                        disable_notification=True,
@@ -439,14 +439,11 @@ class TgUploader:
                 if self.__is_cancelled:
                     return
                 buttons = await self.__buttons(self.__up_path, is_video)
-                nrml_media = await self.__client.send_video(chat_id=self.__sent_msg.chat.id,
+                nrml_media = await self.__client.send_document(chat_id=self.__sent_msg.chat.id,
                                                                     reply_to_message_id=self.__sent_msg.id,
                                                                     video=self.__up_path,
                                                                     caption=cap_mono,
-                                                                    duration=duration,
-                                                                    width=width,
-                                                                    height=height,
-                                                                    thumb=thumb,
+                                                                    thumb=None,
                                                                     supports_streaming=True,
                                                                     disable_notification=True,
                                                                     progress=self.__upload_progress,
@@ -464,14 +461,11 @@ class TgUploader:
                 duration, artist, title = await get_media_info(self.__up_path)
                 if self.__is_cancelled:
                     return
-                self.__sent_msg = await self.__client.send_audio(chat_id=self.__sent_msg.chat.id,
+                self.__sent_msg = await self.__client.send_document(chat_id=self.__sent_msg.chat.id,
                                                                     reply_to_message_id=self.__sent_msg.id,
                                                                     audio=self.__up_path,
                                                                     caption=cap_mono,
-                                                                    duration=duration,
-                                                                    performer=artist,
-                                                                    title=title,
-                                                                    thumb=thumb,
+                                                                    thumb=None,
                                                                     disable_notification=True,
                                                                     progress=self.__upload_progress,
                                                                     reply_markup=await self.__buttons(self.__up_path))
@@ -479,7 +473,7 @@ class TgUploader:
                 key = 'photos'
                 if self.__is_cancelled:
                     return
-                self.__sent_msg = await self.__client.send_photo(chat_id=self.__sent_msg.chat.id,
+                self.__sent_msg = await self.__client.send_document(chat_id=self.__sent_msg.chat.id,
                                                                     reply_to_message_id=self.__sent_msg.id,
                                                                     photo=self.__up_path,
                                                                     caption=cap_mono,
